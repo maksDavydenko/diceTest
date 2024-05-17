@@ -1,8 +1,12 @@
 import React from 'react';
 import { Container, Alert, AlertTitle } from '@mui/material';
-import { ItemProps } from '@/types/types';
+import { ResultItem } from '@/types/types';
 
-const AlertItem: React.FC<ItemProps> = ({ history }) => {
+export interface AlertItemProps {
+    history: ResultItem[];
+}
+
+const AlertItem: React.FC<AlertItemProps> = ({ history }) => {
   return (
     <>
       {history.length > 0 && (

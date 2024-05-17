@@ -12,9 +12,13 @@ import {
     TableHead,
 } from '@mui/material';
 
-import { ItemProps } from '@/types/types';
+import { ResultItem } from '@/types/types';
 
-const TableResults: React.FC<ItemProps> = ({ history }) => {
+export interface TableResultsProps {
+    history: ResultItem[];
+}
+
+const TableResults: React.FC<TableResultsProps> = ({ history }) => {
     const theme = useTheme();
     
     return (
