@@ -84,7 +84,11 @@ const DiceGame: React.FC = () => {
         )}
         </Box>
       <FormControl component="fieldset" fullWidth>
-      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+      <Box 
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+        }}>
         <RadioGroup
           row
           value={condition}
@@ -119,6 +123,9 @@ const DiceGame: React.FC = () => {
           ]}
           min={0}
           max={100}
+          style={{ 
+            marginBottom: 35,
+          }}
         />
          <Button 
             variant="contained"
