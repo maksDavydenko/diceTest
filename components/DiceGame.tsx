@@ -62,8 +62,9 @@ const DiceGame: React.FC = () => {
     <>
     <AlertItem history={history} />
         <Container style={{
-            paddingTop: '90px',
-            maxWidth: '300px'
+            paddingTop: 90,
+            maxWidth: 300,
+            marginBottom: 20
         }}>
         <Box
             style={{
