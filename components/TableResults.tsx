@@ -25,8 +25,8 @@ const TableResults: React.FC<TableResultsProps> = ({ history }) => {
         <>
         {history.length > 0 && (
         <TableContainer style={{
-        maxWidth: '550px',
-        margin: '0 auto'
+            maxWidth: 550,
+            margin: '0 auto'
         }}>
         <Table>
             <TableHead >
