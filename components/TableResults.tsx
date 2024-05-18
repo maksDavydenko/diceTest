@@ -1,73 +1,84 @@
-
-
-import React from 'react';
-import { useTheme } from '@mui/material/styles';
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 
 import {
-    TableBody,
-    TableRow,
-    TableCell,
-    TableContainer,
-    Table,
-    TableHead,
-} from '@mui/material';
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Table,
+  TableHead,
+} from "@mui/material";
 
-import { ResultItem } from '@/types/types';
+import { ResultItem } from "@/types/types";
 
-export interface TableResultsProps {
-    history: ResultItem[];
+interface TableResultsProps {
+  history: ResultItem[];
 }
 
 const TableResults: React.FC<TableResultsProps> = ({ history }) => {
-    const theme = useTheme();
-    
-    return (
-        <>
-        {history.length > 0 && (
-        <TableContainer style={{
+  const theme = useTheme();
+
+  return (
+    <>
+      {history.length > 0 && (
+        <TableContainer
+          style={{
             maxWidth: 550,
-            margin: '0 auto'
-        }}>
-        <Table>
-            <TableHead >
-                <TableRow>
-                <TableCell 
-                    sx={{
-                        fontWeight: 'bold'
-                    }}>
-                    Time
-                </TableCell>
-                <TableCell 
-                    sx={{
-                        fontWeight: 'bold'
-                     }}>
-                    Guess
+            margin: "0 auto",
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  Time
                 </TableCell>
                 <TableCell
-                    sx={{
-                    fontWeight: 'bold'
-                    }}>
-                        Result
+                  sx={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  Guess
                 </TableCell>
-                </TableRow>
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  Result
+                </TableCell>
+              </TableRow>
             </TableHead>
-        <TableBody>
-            {history.map((item) => (
+            <TableBody>
+              {history.map((item) => (
                 <TableRow key={item.id}>
-                    <TableCell>{item.time}</TableCell>
-                    <TableCell>{item.condition === 'over' ? 'Over' : 'Under'} {item.threshold}</TableCell>
-                    <TableCell style={{
-                        color: item.won ? theme.palette.success.main : theme.palette.danger.main
-                    }}>
-                        {item.result}
-                    </TableCell>
+                  <TableCell>{item.time}</TableCell>
+                  <TableCell>
+                    {item.condition === "over" ? "Over" : "Under"}{" "}
+                    {item.threshold}
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: item.won
+                        ? theme.palette.success.main
+                        : theme.palette.danger.main,
+                    }}
+                  >
+                    {item.result}
+                  </TableCell>
                 </TableRow>
-            ))}
-        </TableBody>
-    </Table>
-    </TableContainer>
-    )}
-</>
-)}
-    
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
+  );
+};
+
 export default TableResults;

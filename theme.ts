@@ -1,31 +1,31 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
-    danger: Palette['primary'];
+    danger: Palette["primary"];
   }
 
   interface PaletteOptions {
-    danger?: PaletteOptions['primary'];
+    danger?: PaletteOptions["primary"];
   }
 }
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#9c27b0',
-      light: '#ffffff',
+      main: "#9c27b0",
+      light: "#ffffff",
     },
     success: {
-      main: '#4caf50',
+      main: "#4caf50",
     },
 
     danger: {
-      main: '#ff3d00',
+      main: "#ff3d00",
     },
 
     background: {
-      default: 'rgba(0, 0, 0, 0.04)',
+      default: "rgba(0, 0, 0, 0.04)",
     },
   },
 });
