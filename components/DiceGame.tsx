@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 import {
   Slider,
   Button,
@@ -12,16 +11,17 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-
 import { useTheme } from "@mui/material/styles";
 import AlertItem from "./AlertItem";
 import TableResults from "./TableResults";
 import { ResultItem } from "@/types/types";
 
+type Condition = "over" | "under";
+
 const DiceGame: React.FC = () => {
   const theme = useTheme();
   const [threshold, setThreshold] = useState<number>(50);
-  const [condition, setCondition] = useState<"over" | "under">("over");
+  const [condition, setCondition] = useState<Condition>("over");
   const [result, setResult] = useState<number>(0);
   const [history, setHistory] = useState<ResultItem[]>([]);
 
@@ -34,15 +34,13 @@ const DiceGame: React.FC = () => {
   };
 
   const isWinner = (rollResult: number): boolean => {
-    if (condition === "over") {
-      return rollResult > threshold;
-    }
-    return rollResult < threshold;
+    return condition === "over"
+      ? rollResult > threshold
+      : rollResult < threshold;
   };
 
   const handlePlay = () => {
     const rollResult = Math.floor(Math.random() * 100) + 1;
-
     const resultItem: ResultItem = {
       id: uuidv4(),
       condition,
@@ -53,52 +51,53 @@ const DiceGame: React.FC = () => {
     };
 
     setResult(rollResult);
-    const newHistory = [resultItem, ...history].slice(0, 10);
-    setHistory(newHistory);
+    setHistory([resultItem, ...history].slice(0, 10));
+  };
+
+  const commonStyles = {
+    container: {
+      paddingTop: 90,
+      maxWidth: 300,
+      marginBottom: 20,
+    },
+    box: {
+      position: "relative",
+      minHeight: 200,
+      backgroundColor: theme.palette.background.default,
+    },
+    typography: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    },
+    radioGroupBox: {
+      display: "flex",
+      justifyContent: "center",
+    },
+    slider: {
+      marginBottom: 4,
+    },
+    button: {
+      backgroundColor: theme.palette.primary.main,
+    },
   };
 
   return (
     <>
-      <AlertItem history={history} />
-      <Container
-        style={{
-          paddingTop: 90,
-          maxWidth: 300,
-          marginBottom: 20,
-        }}
-      >
-        <Box
-          style={{
-            position: "relative",
-            minHeight: 200,
-            backgroundColor: theme.palette.background.default,
-          }}
-        >
-          {result !== null && (
-            <Typography
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-              variant="h1"
-            >
-              {result}
-            </Typography>
-          )}
+      <AlertItem latestResult={history[0]} />
+      <Container style={commonStyles.container}>
+        <Box sx={commonStyles.box}>
+          <Typography sx={commonStyles.typography} variant="h1">
+            {result}
+          </Typography>
         </Box>
         <FormControl component="fieldset" fullWidth>
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <Box style={commonStyles.radioGroupBox}>
             <RadioGroup
               row
               value={condition}
-              onChange={(e) => setCondition(e.target.value as "over" | "under")}
+              onChange={(e) => setCondition(e.target.value as Condition)}
             >
               <FormControlLabel
                 labelPlacement="start"
@@ -130,15 +129,11 @@ const DiceGame: React.FC = () => {
             ]}
             min={0}
             max={100}
-            style={{
-              marginBottom: 35,
-            }}
+            sx={commonStyles.slider}
           />
           <Button
             variant="contained"
-            style={{
-              backgroundColor: theme.palette.primary.main,
-            }}
+            sx={commonStyles.button}
             onClick={handlePlay}
           >
             Play

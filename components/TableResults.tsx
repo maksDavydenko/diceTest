@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
-
 import {
   TableBody,
   TableRow,
@@ -9,7 +8,6 @@ import {
   Table,
   TableHead,
 } from "@mui/material";
-
 import { ResultItem } from "@/types/types";
 
 interface TableResultsProps {
@@ -19,39 +17,29 @@ interface TableResultsProps {
 const TableResults: React.FC<TableResultsProps> = ({ history }) => {
   const theme = useTheme();
 
+  const commonStyles = {
+    tableContainer: {
+      maxWidth: 550,
+      margin: "0 auto",
+    },
+    tableCellHeader: {
+      fontWeight: "bold",
+    },
+    tableCellResult: (won: boolean) => ({
+      color: won ? theme.palette.success.main : theme.palette.error.main,
+    }),
+  };
+
   return (
     <>
       {history.length > 0 && (
-        <TableContainer
-          style={{
-            maxWidth: 550,
-            margin: "0 auto",
-          }}
-        >
+        <TableContainer sx={commonStyles.tableContainer}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Time
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Guess
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Result
-                </TableCell>
+                <TableCell sx={commonStyles.tableCellHeader}>Time</TableCell>
+                <TableCell sx={commonStyles.tableCellHeader}>Guess</TableCell>
+                <TableCell sx={commonStyles.tableCellHeader}>Result</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -62,13 +50,7 @@ const TableResults: React.FC<TableResultsProps> = ({ history }) => {
                     {item.condition === "over" ? "Over" : "Under"}{" "}
                     {item.threshold}
                   </TableCell>
-                  <TableCell
-                    style={{
-                      color: item.won
-                        ? theme.palette.success.main
-                        : theme.palette.danger.main,
-                    }}
-                  >
+                  <TableCell sx={commonStyles.tableCellResult(item.won)}>
                     {item.result}
                   </TableCell>
                 </TableRow>
