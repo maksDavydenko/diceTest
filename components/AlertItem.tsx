@@ -33,7 +33,9 @@ const AlertItem: React.FC<AlertItemProps> = ({ history }) => {
           ) : (
             <Alert variant="filled" severity="error">
               <AlertTitle>You lost</AlertTitle>
-              Number was higher
+              {history[0].condition === "over"
+                ? "Number was lower"
+                : "Number was higher"}
             </Alert>
           )}
         </Container>
